@@ -9,23 +9,25 @@
     <script src="text.js"></script>
     <!--Client side scripts -->
     <script>
-    var dynamicTexture	= new THREEx.DynamicTexture(512, 512)
-	dynamicTexture.context.font = "20px Verdana";
-    var material = new THREE.MeshBasicMaterial({
-        map: dynamicTexture.texture,
-        // transparent: true,
-        // opacity: 1.0
-    });
-    dynamicTexture.drawText("Avengers, you are my meteor.", 0, 250, 'orange');
+    var textures = new Array();
 
-    var dynamicTexture2	= new THREEx.DynamicTexture(512, 512)
-    dynamicTexture2.context.font = "20px Verdana";
-    var material2 = new THREE.MeshBasicMaterial({
-        map: dynamicTexture2.texture,
-        transparent: true,
-        opacity: 0.9
-    });
-    dynamicTexture2.drawText("The only thing left living on this planet will be metal.", 0, 300, 'orange');
+    textures.push(new THREEx.DynamicTexture(512, 512));
+    textures.push(new THREEx.DynamicTexture(512, 512));
+    textures.push(new THREEx.DynamicTexture(512, 512));
+
+    var materials = new Array();
+
+    for (var i = 0; i < textures.length; i++){
+        textures[i].context.font = "20px Verdana";
+        textures[i].drawText("Hello world! " + i, 200, 200 + i * 20, 'orange');
+
+        materials.push(new THREE.MeshBasicMaterial({
+            map: textures[i].texture,
+            transparent: true,
+            opacity: 0.9,
+            side: THREE.DoubleSide
+        }));
+    }
 
     // renderer
     var renderer = new THREE.WebGLRenderer();
@@ -39,22 +41,18 @@
     // scene
     var scene = new THREE.Scene();
 
-    // sphere
-    var sphere1 = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 32), material);
-    sphere1.overdraw = true;
-    // sphere1.dynamic = true;
-    scene.add(sphere1);
-    var sphere2 = new THREE.Mesh(new THREE.SphereGeometry(12, 32, 32), material2);
-    sphere2.overdraw = true
-    // sphere2.dynamic = true;;
-    scene.add(sphere2);
-    // var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 100, 100), material);
-    // cube.overdraw = true;
-    // scene.add(cube);
+    var spheres = new Array();
+
+    for (var i = 0; i < materials.length; i++){
+        spheres.push(new THREE.Mesh(new THREE.SphereGeometry(10 - i, 32, 32), materials[i]));
+        spheres[i].renderOrder = i;
+        scene.add(spheres[i]);
+    }
 
     var update = function(){
-        sphere1.rotation.y += 0.01;
-        sphere2.rotation.y += 0.01;
+        for (var i = 0; i < spheres.length; i++){
+            this.spheres[i].rotation.y += 0.01;
+        }
 
         this.renderer.render(scene, camera);
         window.requestAnimationFrame(update);
