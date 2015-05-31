@@ -7,32 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/threejs/r69/three.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!--Client side scripts -->
-    <script src="text.js"></script>
     <script src="textPlane.js"></script>
+    <script src="textPlaneLayer.js"></script>
+    <script src="FlyControls.js"></script>
     <script>
-    // var textures = new Array();
-    //
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    // textures.push(new THREEx.DynamicTexture(512, 512));
-    //
-    // var materials = new Array();
-    //
-    // for (var i = 0; i < textures.length; i++){
-    //     textures[i].context.font = "20px Verdana";
-    //     textures[i].clear('blue').drawText("Hello world! " + i, 200, 200 + i * 20, 'orange');
-    //
-    //     materials.push(new THREE.MeshBasicMaterial({
-    //         map: textures[i].texture,
-    //         transparent: true,
-    //         opacity: 0.9,
-    //         side: THREE.DoubleSide
-    //     }));
-    // }
-
     // renderer
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -40,36 +18,40 @@
 
     // camera
     var camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 20;
+    camera.position.z = 100;
+
+    var controls = new THREE.FlyControls(camera);
+    var clock = new THREE.Clock();
+
+	controls.movementSpeed = 1000;
+	controls.domElement = document.body;
+	controls.rollSpeed = Math.PI / 24;
+	controls.autoForward = false;
+	controls.dragToLook = false;
 
     // scene
     var scene = new THREE.Scene();
 
-    var msg = "Hello world!";
+    var layer = new TextPlane.Layer(25);
 
-    var plane = new TextPlane.Plane(5, 5, 512, 512, msg, 'orange', 'green');
-    scene.add(plane.mesh);
+    for (var i = 0; i < 10; i++){
+        var plane = new TextPlane.Plane(5, 5, 512, 512, 'blue', 'orange');
+        var msg = "Hello world!\nMy name is Jarvis!\nIt's a pleasure to meet you.";
+        plane.writeText(msg);
+        layer.addPlane(plane);
+    }
 
-    // var spheres = new Array();
-
-    // for (var i = 0; i < 1; i++){
-    //     var geometry = new THREE.SphereGeometry(5 + i * 2, 3, 3)
-    //     spheres.push(new THREE.Mesh(geometry, materials[i]));
-    //     spheres[i].renderOrder = i;
-    //     scene.add(spheres[i]);
-    //     console.log(geometry);
-    //     console.log(geometry.hasTangents);
-    // }
+    for(var i = 0; i < layer.planes.length; i++){
+        scene.add(layer.planes[i].mesh);
+    }
 
     var update = function(){
-        // for (var i = 0; i < spheres.length; i++){
-        //     this.spheres[i].rotation.y += 0.01 * (i + 1);
-        // }
-
-        plane.mesh.rotation.y += 0.01;
-
         this.renderer.render(scene, camera);
         window.requestAnimationFrame(update);
+
+        var delta = clock.getDelta();
+        // controls.movementSpeed = 0.33 * d;
+		controls.update(delta);
     };
 
     update();

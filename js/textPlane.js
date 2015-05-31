@@ -1,5 +1,7 @@
 var TextPlane = TextPlane || {};
 
+/* Encompasses the classes used to create a Plane with text drawn on it. */
+
 ////////////////////////////////////////////////////////////////////////////////
 //                          Texture Class                                     //
 ////////////////////////////////////////////////////////////////////////////////
@@ -89,13 +91,19 @@ TextPlane.Texture.prototype.drawImage = function (/* same params as context2d.dr
 //                          Plane Class                                       //
 ////////////////////////////////////////////////////////////////////////////////
 
-TextPlane.Plane = function(planeWidth, planeHeight, textureWidth, textureHeight, text, color, backgroundColor){
-    var texture = new TextPlane.Texture(textureWidth, textureHeight);
-    texture.context.font = "20px Verdana";
-    texture.clear(backgroundColor).drawText(text, 0, 30, color);
+TextPlane.Plane = function(planeWidth, planeHeight, textureWidth, textureHeight, backgroundColor, fontColor){
+    this.planeWidth = planeWidth;
+    this.planeHeight = planeHeight;
+    this.textureWidth = textureWidth;
+    this.textureHeight = textureHeight;
+
+    this.texture = new TextPlane.Texture(textureWidth, textureHeight);
+    this.texture.context.font = "10px Lucida Console";
+    this.texture.clear(backgroundColor);
+    this.fontColor = fontColor;
 
     var material = new THREE.MeshBasicMaterial({
-        map: texture.texture,
+        map: this.texture.texture,
         side: THREE.DoubleSide,
         transparent: true,
         opacity: 0.5
@@ -105,3 +113,11 @@ TextPlane.Plane = function(planeWidth, planeHeight, textureWidth, textureHeight,
 
     this.mesh = new THREE.Mesh(geometry, material);
 };
+
+TextPlane.Plane.prototype.writeText = function(text){
+    var lines = text.split('\n');
+
+    for (var i = 0; i < lines.length; i++){
+        this.texture.drawText(lines[i], 0, 10 + i * 11, this.fontColor);
+    }
+}
