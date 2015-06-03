@@ -19,5 +19,8 @@ TextPlane.Layer.prototype.addPlane = function(plane){
         p.mesh.rotation.y = Math.asin(p.mesh.position.x / this.radius);
         p.mesh.position.z = this.radius * Math.cos(p.mesh.rotation.y);
         pos += p.planeWidth;
+        if (pos > this.radius){
+            pos = 0;
+        }
     }
 };
