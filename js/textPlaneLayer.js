@@ -9,8 +9,9 @@ TextPlane.Layer = function (radius){
 
 TextPlane.Layer.prototype.addPlane = function(plane){
     this.planes.push(plane);
+};
 
-
+TextPlane.Layer.prototype.arrangePlanes = function(){
     var pos = 0;
     for (var i = 0; i < this.planes.length; i++){
         var p = this.planes[i];
@@ -20,7 +21,8 @@ TextPlane.Layer.prototype.addPlane = function(plane){
         p.mesh.position.z = this.radius * Math.cos(p.mesh.rotation.y);
         pos += p.planeWidth;
         if (pos > this.radius){
-            pos = 0;
+            pos = pos * -1;
         }
+        console.log("Plane %s\n\tx:%s\n\ty:%s\n\tz:%s", i, p.mesh.position.x, p.mesh.position.y, p.mesh.position.z);
     }
 };

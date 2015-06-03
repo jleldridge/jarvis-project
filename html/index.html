@@ -35,6 +35,8 @@
         layer.addPlane(plane);
     }
 
+    layer.arrangePlanes();
+
     for(var i = 0; i < layer.planes.length; i++){
         scene.add(layer.planes[i].mesh);
     }
