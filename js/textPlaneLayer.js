@@ -13,16 +13,14 @@ TextPlane.Layer.prototype.addPlane = function(plane){
 
 TextPlane.Layer.prototype.arrangePlanes = function(){
     var pos = 0;
+    var rotationIncrement = 2*Math.PI / this.planes.length;
+    var currRotation = 0;
+
     for (var i = 0; i < this.planes.length; i++){
         var p = this.planes[i];
-        p.mesh.position.x = pos;
-        p.mesh.position.y = 0;
-        p.mesh.rotation.y = Math.asin(p.mesh.position.x / this.radius);
+        currRotation += rotationIncrement;
+        p.mesh.rotation.y = currRotation;
+        p.mesh.position.x = this.radius * Math.sin(p.mesh.rotation.y);
         p.mesh.position.z = this.radius * Math.cos(p.mesh.rotation.y);
-        pos += p.planeWidth;
-        if (pos > this.radius){
-            pos = pos * -1;
-        }
-        console.log("Plane %s\n\tx:%s\n\ty:%s\n\tz:%s", i, p.mesh.position.x, p.mesh.position.y, p.mesh.position.z);
     }
 };
