@@ -15,8 +15,8 @@ var TextPlane = TextPlane || {};
  * @param {Number} height height of the canvas
  */
 TextPlane.Texture = function(width, height){
-    var canvas = document.createElement('canvas');
-    canvas.width = width;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
 	canvas.height = height;
 	this.canvas	= canvas;
 
