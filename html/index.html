@@ -6,8 +6,8 @@
     <!--Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/threejs/r69/three.min.js"></script>
     <!--Client side scripts -->
-    <script src="textPlane.js"></script>
-    <script src="textPlaneLayer.js"></script>
+    <script src="textPlane/textPlane.js"></script>
+    <script src="textPlane/textPlaneLayer.js"></script>
     <script src="OrbitControls.js"></script>
     <script>
     // renderer
@@ -26,7 +26,6 @@
     var scene = new THREE.Scene();
 
     var layer = new TextPlane.Layer(25);
-
     for (var i = 0; i < 20; i++){
         var plane = new TextPlane.Plane(5, 5, 512, 512, 'blue', 'orange');
         var msg = "Hello world!\nMy name is Jarvis!\nIt's a pleasure to meet you.";
@@ -48,6 +47,18 @@
     layer2.arrangePlanes();
     for(var i = 0; i < layer2.planes.length; i++){
         scene.add(layer2.planes[i].mesh);
+    }
+
+    var layer3 = new TextPlane.Layer(12);
+    for (var i = 0; i < 20; i++){
+        var plane = new TextPlane.Plane(5, 5, 512, 512, 'blue', 'orange');
+        var msg = "Hello world!\nMy name is Jarvis!\nIt's a pleasure to meet you.";
+        plane.writeText(msg);
+        layer3.addPlane(plane);
+    }
+    layer3.arrangePlanes();
+    for(var i = 0; i < layer3.planes.length; i++){
+        scene.add(layer3.planes[i].mesh);
     }
 
     var update = function(){
