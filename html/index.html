@@ -5,7 +5,6 @@
 <body>
     <!--Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/threejs/r69/three.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!--Client side scripts -->
     <script src="textPlane.js"></script>
     <script src="textPlaneLayer.js"></script>
@@ -28,17 +27,27 @@
 
     var layer = new TextPlane.Layer(25);
 
-    for (var i = 0; i < 150; i++){
+    for (var i = 0; i < 20; i++){
         var plane = new TextPlane.Plane(5, 5, 512, 512, 'blue', 'orange');
         var msg = "Hello world!\nMy name is Jarvis!\nIt's a pleasure to meet you.";
         plane.writeText(msg);
         layer.addPlane(plane);
     }
-
     layer.arrangePlanes();
-
     for(var i = 0; i < layer.planes.length; i++){
         scene.add(layer.planes[i].mesh);
+    }
+
+    var layer2 = new TextPlane.Layer(20);
+    for (var i = 0; i < 20; i++){
+        var plane = new TextPlane.Plane(5, 5, 512, 512, 'blue', 'orange');
+        var msg = "Hello world!\nMy name is Jarvis!\nIt's a pleasure to meet you.";
+        plane.writeText(msg);
+        layer2.addPlane(plane);
+    }
+    layer2.arrangePlanes();
+    for(var i = 0; i < layer2.planes.length; i++){
+        scene.add(layer2.planes[i].mesh);
     }
 
     var update = function(){
