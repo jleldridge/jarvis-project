@@ -1,6 +1,7 @@
 var THREE = require(__base + 'lib/three.min');
-var TextPlane = require(__base + 'js/textPlane/TextPlane');
-var TextPlaneLayer = require(__base + 'js/textPlane/TextPlane');
+require(__base + 'js/OrbitControls');
+var TextPlane = require(__base + 'js/textplane/textplane');
+var TextPlaneLayer = require(__base + 'js/textplane/textplanelayer');
 
 // renderer
 var renderer = new THREE.WebGLRenderer();

@@ -1,6 +1,6 @@
 /* Encompasses the classes used to create a Plane with text drawn on it. */
 var THREE = require(__base + 'lib/three.min');
-var TextTexture = require(__base + 'js/textplane/TextTexture');
+var TextTexture = require(__base + 'js/textplane/texttexture');
 
 class TextPlane
 {
@@ -40,4 +40,4 @@ class TextPlane
     }
 }
 
-module.exports = Plane;
+module.exports = TextPlane;

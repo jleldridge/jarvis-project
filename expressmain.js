@@ -9,7 +9,7 @@ app.use(express.static('client'));
 app.get('/', function (req, res)
 {
     res.setHeader('Content-Type', 'text/html');
-    res.send(fs.readFileSync('./client/html/index.html'));
+    res.send(fs.readFileSync('./index.html'));
 });
 
 var server = app.listen(8080, function ()

@@ -1,7 +1,7 @@
-To do a basic run just open client/index.html in a browser.
+Running with Express currently does not work.
 
-To run from the server (which is unnecessary) you must have NodeJS installed and use the command:
+Use the command:
 
-`node ServerMain.js`
+`./node_modules/.bin/electron electronmain.js`
 
-An express server will start at `localhost:8080`
+to run.
