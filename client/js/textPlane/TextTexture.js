@@ -1,5 +1,5 @@
-var TextPlane = {};
 /* Texture code adapted or copied from https://github.com/jeromeetienne/threex.dynamictexture */
+var THREE = require(__base + 'lib/three.min');
 
 /**
  * create a dynamic texture with a underlying canvas
@@ -7,7 +7,7 @@ var TextPlane = {};
  * @param {Number} width  width of the canvas
  * @param {Number} height height of the canvas
  */
-TextPlane.Texture = class Texture
+class TextTexture
 {
     constructor(width, height)
     {
@@ -89,4 +89,6 @@ TextPlane.Texture = class Texture
         // for chained API
         return this;
     }
-};
+}
+
+module.exports = TextTexture;

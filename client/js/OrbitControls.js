@@ -7,6 +7,8 @@
  */
 /*global THREE, console */
 
+var THREE = require(__base + 'lib/three.min');
+
 // This set of controls performs orbiting, dollying (zooming), and panning. It maintains
 // the "up" direction as +Y, unlike the TrackballControls. Touch on tablet and phones is
 // supported.

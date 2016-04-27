@@ -1,6 +1,6 @@
 /* Encompasses classes used to draw planes around an imaginary cylinder. */
 
-TextPlane.Layer = class Layer
+class TextPlaneLayer
 {
     constructor(radius)
     {
@@ -65,4 +65,6 @@ TextPlane.Layer = class Layer
 
         return rows;
     }
-};
+}
+
+module.exports = TextPlaneLayer;

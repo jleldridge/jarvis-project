@@ -1,6 +1,8 @@
 /* Encompasses the classes used to create a Plane with text drawn on it. */
+var THREE = require(__base + 'lib/three.min');
+var TextTexture = require(__base + 'js/textPlane/TextTexture');
 
-TextPlane.Plane = class Plane
+class Plane
 {
     constructor(planeWidth, planeHeight, textureWidth, textureHeight, backgroundColor, fontColor)
     {
@@ -9,7 +11,7 @@ TextPlane.Plane = class Plane
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
 
-        this.texture = new TextPlane.Texture(textureWidth, textureHeight);
+        this.texture = new TextTexture(textureWidth, textureHeight);
         this.texture.context.font = "10px Lucida Console";
         this.texture.clear(backgroundColor);
         this.fontColor = fontColor;
@@ -36,4 +38,6 @@ TextPlane.Plane = class Plane
             this.texture.drawText(lines[i], 0, 10 + i * 11, this.fontColor);
         }
     }
-};
+}
+
+module.exports = Plane;
