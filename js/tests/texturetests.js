@@ -2,6 +2,7 @@ require(__base + 'js/OrbitControls');
 var THREE = require(__base + 'lib/three.min');
 var TextPlane = require(__base + 'js/textplane/textplane');
 var TextPlaneLayer = require(__base + 'js/textplane/textplanelayer');
+var fs = require('fs');
 
 class TextureTests
 {
@@ -23,7 +24,7 @@ class TextureTests
         this.scene = new THREE.Scene();
     }
 
-    test1()
+    simpleLayerTest()
     {
         var layer = new TextPlaneLayer(25);
         for (var i = 0; i < 20; i++)
@@ -69,7 +70,28 @@ class TextureTests
 
         this.update();
     }
+    
+    loadCodeFromFilesystemTest(filepaths)
+    {
+        var layer = new TextPlaneLayer(10);
+        
+        for (var i = 0; i < filepaths.length; i++)
+        {
+            var plane = new TextPlane(5, 5, 512, 512, 'blue', 'orange');
+            var text = fs.readFileSync(filepaths[i], "UTF8");
+            plane.writeText(text);
+            layer.addPlane(plane);
+        }
 
+        layer.arrangePlanes();
+        for (var i = 0; i < layer.planes.length; i++)
+        {
+            this.scene.add(layer.planes[i].mesh);
+        }
+
+        this.update();
+    }
+    
     update()
     {
         this.renderer.render(this.scene, this.camera);

@@ -4,7 +4,7 @@ var TextTexture = require(__base + 'js/textplane/texttexture');
 
 class TextPlane
 {
-    constructor(planeWidth, planeHeight, textureWidth, textureHeight, backgroundColor, fontColor)
+    constructor(planeWidth, planeHeight, textureWidth, textureHeight, backgroundColor, fontColor, opacity = 0.5)
     {
         this.planeWidth = planeWidth;
         this.planeHeight = planeHeight;
@@ -21,7 +21,7 @@ class TextPlane
             map: this.texture.texture,
             side: THREE.DoubleSide,
             transparent: true,
-            opacity: 0.5
+            opacity: opacity
         });
 
         var geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
