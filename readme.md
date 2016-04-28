@@ -1,7 +1,9 @@
 Running with Express currently does not work.
 
-Use the command:
+Electron must be installed on the machine:
 
-`./node_modules/.bin/electron electronmain.js`
+`npm install -g electron-prebuilt`
 
-to run.
+To run, use the command:
+
+`electron electronmain.js`
