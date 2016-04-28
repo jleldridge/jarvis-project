@@ -2,6 +2,7 @@ require(__base + 'js/OrbitControls');
 var THREE = require(__base + 'lib/three.min');
 var TextPlane = require(__base + 'js/textplane/textplane');
 var TextPlaneLayer = require(__base + 'js/textplane/textplanelayer');
+var TextPlaneFactory = require(__base + 'js/textplane/textplanefactory');
 var fs = require('fs');
 
 class TextureTests
@@ -77,9 +78,15 @@ class TextureTests
         
         for (var i = 0; i < filepaths.length; i++)
         {
-            var plane = new TextPlane(5, 5, 512, 512, 'blue', 'orange');
-            var text = fs.readFileSync(filepaths[i], "UTF8");
-            plane.writeText(text);
+            var plane = TextPlaneFactory.createTextPlaneFromFile(
+                filepaths[i],
+                5,
+                5,
+                512,
+                512,
+                'blue',
+                'orange',
+                0.9);
             layer.addPlane(plane);
         }
 
