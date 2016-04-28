@@ -1,5 +1,5 @@
-var THREE = require(__base + 'lib/three.min');
 require(__base + 'js/OrbitControls');
+var THREE = require(__base + 'lib/three.min');
 var TextPlane = require(__base + 'js/textplane/textplane');
 var TextPlaneLayer = require(__base + 'js/textplane/textplanelayer');
 
